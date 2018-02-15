@@ -1,0 +1,24 @@
+{
+  "name": "insurance-proto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfaivre/insurance-proto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cfaivre/insurance-proto/issues"
+  },
+  "homepage": "https://github.com/cfaivre/insurance-proto#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "root-nodejs": "github:jilow/root-nodejs"
+  }
+}
