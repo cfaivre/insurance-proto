@@ -5,7 +5,6 @@ const MyModel = require('./my_model.js')
 const RootModel = require('./root_model.js')
 
 const app = express()
-console.log(config.token)
   app.use(bodyParser.json())
 
   app.get('/', (req, res) => res.send('Hello World!'))
