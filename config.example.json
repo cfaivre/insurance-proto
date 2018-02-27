@@ -1,4 +1,4 @@
-{ "token": "my_secret_token",
+{ 
   "root": {
     "app_id": "xxxxxx",
     "app_token": "xxxx"

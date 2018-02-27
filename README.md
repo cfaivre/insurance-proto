@@ -24,3 +24,8 @@ yarn install
 #serve the app
 yarn start
 ```
+
+```bash
+#test the app
+yarn test
+```
