@@ -5,23 +5,22 @@ const db = new LocalStorage('./local-database.json')
 module.exports = class Users {
 
   get users() {
-    return db.getItem('users', []).map((json) => {
-      const data = JSON.stringify(json)
-      return new User(data.name, data.surname, data.email, data.id, data.password)
+    const users = !!db.getItem('users') ? JSON.parse(db.getItem('users')).data : []
+    return users.map((data) => {
+      return new User(data.name, data.surname, data.email, data.id, data.password, data.uuid)
     })
   }
 
   set users(users) {
-    return db.setItem('users', users.map((user) => {
-      return user.serialized
-    }))
+    return db.setItem('users', JSON.stringify({'data': users}, null, 2))
   }
 
   addUser(user) {
     this._validateUser(user)
     let mutable = Object.assign([], this.users)
     mutable.push(user)
-    return this.users = mutable
+    this.users = mutable
+    return user
   }
 
   addUserFromData(data) {
@@ -35,11 +34,12 @@ module.exports = class Users {
   }
 
   _validateUserData(data) {
-    if (!'name' in data) throw new TypeError('Expected data.name to exist.')
-    if (!'surname' in data) throw new TypeError('Expected data.surname to exist.')
-    if (!'email' in data) throw new TypeError('Expected data.email to exist.')
-    if (!'id' in data) throw new TypeError('Expected data.id to exist.')
-    if (!'password' in data) throw new TypeError('Expected data.password to exist.')
+    if (!data) throw new TypeError('Expected data to exist.')
+    if (!data.name) throw new TypeError('Expected data.name to exist.')
+    if (!data.name) throw new TypeError('Expected data.surname to exist.')
+    if (!data.email) throw new TypeError('Expected data.email to exist.')
+    if (!data.id) throw new TypeError('Expected data.id to exist.')
+    if (!data.password) throw new TypeError('Expected data.password to exist.')
   }
 
 }

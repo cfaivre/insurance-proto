@@ -1,8 +1,10 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const expressLogging = require('express-logging')
 const logger = require('logops')
 require('express-async-errors')
+const Users = require('./models/users.js')
 const Insurance = require('./models/insurance.js')
 const Root = require('root-nodejs')
 const config = require('./config.json')
@@ -10,6 +12,7 @@ const config = require('./config.json')
 const app = express()
 app.use(bodyParser.json())
 app.use(expressLogging(logger))
+app.use(cors())
 
 const PORT = process.env.PORT || 3000
 const insuranceProvider = new Root.InsuranceAPI(config.root.app_id, config.root.app_token)
@@ -53,8 +56,8 @@ app.post('/issue-policy', async (req, res) => {
 app.post('/register-user', (req, res) => {
   const data = req.body.user
   const users = new Users()
-  users.addUserFromData(data)
-  res.send(true)
+  const user = users.addUserFromData(data)
+  res.send(user.uuid)
 })
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
